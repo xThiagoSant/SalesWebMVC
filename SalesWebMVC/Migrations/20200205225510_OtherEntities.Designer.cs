@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SalesWebMVC.Data;
 
 namespace SalesWebMVC.Migrations
 {
     [DbContext(typeof(SalesWebMVCContext))]
-    partial class SalesWebMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20200205225510_OtherEntities")]
+    partial class OtherEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +60,7 @@ namespace SalesWebMVC.Migrations
 
                     b.Property<DateTime>("BirthDate");
 
-                    b.Property<int>("DepartmentId");
+                    b.Property<int?>("DepartmentId");
 
                     b.Property<string>("Email");
 
@@ -73,7 +75,7 @@ namespace SalesWebMVC.Migrations
 
             modelBuilder.Entity("SalesWebMVC.Models.SaleRecord", b =>
                 {
-                    b.HasOne("SalesWebMVC.Models.Seller", "Seller")
+                    b.HasOne("SalesWebMVC.Models.Seller")
                         .WithMany("SaleRecords")
                         .HasForeignKey("SellerId");
                 });
@@ -82,8 +84,7 @@ namespace SalesWebMVC.Migrations
                 {
                     b.HasOne("SalesWebMVC.Models.Department", "Department")
                         .WithMany("Sellers")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DepartmentId");
                 });
 #pragma warning restore 612, 618
         }
